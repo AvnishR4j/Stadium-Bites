@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=32&pause=1000&color=F97316&center=true&vCenter=true&width=600&lines=🏟️+Stadium+Bites;AI-Powered+Food+Ratings;Built+for+Cricket+Fans" alt="Typing SVG" />
+# 🏟️ Stadium Bites
 
 <br/>
 
