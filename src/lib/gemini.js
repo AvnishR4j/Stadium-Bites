@@ -1,14 +1,35 @@
 const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY
 const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_KEY}`
 
-async function callGemini(prompt) {
-  const res = await fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-  })
-  const data = await res.json()
-  return data.candidates[0].content.parts[0].text
+// Simple queue to avoid concurrent requests hitting rate limits
+let queue = Promise.resolve()
+function enqueue(fn) {
+  queue = queue.then(() => fn()).catch(() => {})
+  return queue
+}
+
+async function callGemini(prompt, retries = 4) {
+  for (let attempt = 0; attempt < retries; attempt++) {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+    })
+
+    if (res.status === 429) {
+      // Rate limited — wait and retry with exponential backoff
+      const wait = 1500 * Math.pow(2, attempt)
+      await new Promise(r => setTimeout(r, wait))
+      continue
+    }
+
+    const data = await res.json()
+    if (!data.candidates?.[0]?.content?.parts?.[0]?.text) {
+      throw new Error('Empty response')
+    }
+    return data.candidates[0].content.parts[0].text
+  }
+  throw new Error('Rate limit exceeded after retries')
 }
 
 export async function getAISummary(foodName, reviews) {
@@ -48,7 +69,7 @@ Reply in 2-3 sentences max. Be specific — mention food names, prices, ratings.
     const text = await callGemini(prompt)
     return text.trim()
   } catch {
-    return "Sorry, I'm having trouble right now. Try asking again!"
+    return "Looks like I'm getting too many questions at once! Wait a moment and ask again 🏏"
   }
 }
 
