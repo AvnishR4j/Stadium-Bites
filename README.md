@@ -36,9 +36,7 @@ https://github.com/AvnishR4j/Stadium-Bites/raw/main/assets/demo.mp4
 
 ### 🌐 Try it Live
 
-<a href="https://stadium-bites.vercel.app" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/▶%20Open%20App-stadium--bites.vercel.app-f97316?style=for-the-badge&logo=vercel&logoColor=white" alt="Open App" />
-</a>
+**[https://stadium-bites.vercel.app](https://stadium-bites.vercel.app)**
 
 </div>
 
