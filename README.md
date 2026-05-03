@@ -32,6 +32,12 @@ Real-time crowd ratings + Gemini AI, built live at a hackathon in under 3 hours.
 
 https://github.com/AvnishR4j/Stadium-Bites/raw/main/assets/demo.mp4
 
+<br/>
+
+### 🌐 Try it Live
+
+[![Open App](https://img.shields.io/badge/▶%20Open%20App-stadium--bites.vercel.app-f97316?style=for-the-badge&logo=vercel&logoColor=white)](https://stadium-bites.vercel.app)
+
 </div>
 
 ---
