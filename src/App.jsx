@@ -66,7 +66,8 @@ export default function App() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="Search food, drinks, snacks..."
-            className="w-full bg-white/8 border border-white/10 rounded-xl pl-9 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-orange-500/40 transition-colors"
+            className="w-full rounded-xl pl-9 pr-4 py-2.5 text-sm focus:outline-none transition-colors"
+            style={{ background: '#1a1a24', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', colorScheme: 'dark' }}
           />
           {search && (
             <button
