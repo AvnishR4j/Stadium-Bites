@@ -179,9 +179,10 @@ export default function ReviewModal({ item, onClose, onReviewed }) {
         className="bg-[#1a1a24] rounded-t-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto"
         style={{
           transform: `translateY(${translateY}px)`,
-          transition: translateY === 0 ? 'transform 0.3s ease' : 'none',
+          transition: translateY === 0 ? 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)' : 'none',
           touchAction: 'pan-y',
           overscrollBehavior: 'none',
+          animation: 'modalSpring 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
         }}
       >
         {/* Drag handle pill */}

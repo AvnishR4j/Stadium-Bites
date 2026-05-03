@@ -32,7 +32,7 @@ function Message({ msg }) {
       style={{ animation: 'fadeSlideUp 0.25s ease-out' }}
     >
       {!isUser && (
-        <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center text-xs mr-2 flex-shrink-0 mt-0.5">
+        <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs mr-2 flex-shrink-0 mt-0.5" style={{ background: 'linear-gradient(135deg, #7c3aed, #a855f7)' }}>
           🤖
         </div>
       )}
@@ -139,7 +139,7 @@ export default function ChatBot({ foods }) {
               {messages.map(msg => <Message key={msg.id} msg={msg} />)}
               {loading && (
                 <div className="flex justify-start mb-3">
-                  <div className="w-7 h-7 rounded-full bg-purple-600 flex items-center justify-center text-xs mr-2 mt-0.5 flex-shrink-0">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs mr-2 mt-0.5 flex-shrink-0" style={{ background: 'linear-gradient(135deg, #7c3aed, #a855f7)' }}>
                     🤖
                   </div>
                   <div className="bg-[#2a2a3a] border border-white/10 rounded-2xl rounded-tl-sm">
@@ -193,7 +193,8 @@ export default function ChatBot({ foods }) {
       {/* Floating Button */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="fixed bottom-6 right-6 z-40 w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full shadow-lg flex items-center justify-center text-2xl hover:scale-110 active:scale-95 transition-transform"
+        className="fixed bottom-6 right-6 z-40 rounded-full shadow-lg flex items-center justify-center text-2xl hover:scale-110 active:scale-95 transition-transform"
+        style={{ width: 52, height: 52, background: 'linear-gradient(135deg, #f97316, #ea580c)' }}
         style={{ boxShadow: '0 0 0 0 rgba(249,115,22,0.4)', animation: open ? 'none' : 'pulse-ring 2s infinite' }}
       >
         {open ? '×' : '💬'}

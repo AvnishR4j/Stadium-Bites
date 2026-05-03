@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 const BADGE = {
   Loved:  { bg: 'bg-green-500/20',  text: 'text-green-400',  icon: '✅' },
   Mixed:  { bg: 'bg-yellow-500/20', text: 'text-yellow-400', icon: '⚡' },
@@ -10,7 +12,7 @@ function Stars({ rating }) {
   return (
     <div className="flex gap-0.5">
       {[1,2,3,4,5].map(i => (
-        <span key={i} className={i <= r ? 'text-yellow-400' : 'text-gray-600'}>★</span>
+        <span key={i} className={i <= r ? 'text-yellow-400' : 'text-gray-600'} style={{ fontSize: '11px' }}>★</span>
       ))}
     </div>
   )
@@ -24,7 +26,8 @@ function getSentiment(item) {
   return 'Avoid'
 }
 
-export default function FoodCard({ item, onClick }) {
+export default function FoodCard({ item, onClick, index = 0 }) {
+  const [hovered, setHovered] = useState(false)
   const sentiment = getSentiment(item)
   const badge = BADGE[sentiment]
   const avg = Number(item.avg_rating || 0).toFixed(1)
@@ -32,9 +35,23 @@ export default function FoodCard({ item, onClick }) {
   return (
     <button
       onClick={() => onClick(item)}
-      className="bg-white/8 border border-white/10 rounded-2xl p-4 text-left hover:bg-white/15 hover:border-orange-500/40 transition-all active:scale-95 group"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="bg-[#1a1a24] border border-white/10 rounded-2xl p-4 text-left transition-all active:scale-95 group w-full"
+      style={{
+        animation: `fadeSlideUp 0.35s ease-out ${index * 0.05}s both`,
+        transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
+        boxShadow: hovered ? '0 8px 24px rgba(0,0,0,0.3)' : 'none',
+        borderColor: hovered ? 'rgba(249,115,22,0.35)' : 'rgba(255,255,255,0.1)',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease',
+      }}
     >
-      <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">{item.image_emoji}</div>
+      <div
+        className="text-4xl mb-3 transition-transform duration-200"
+        style={{ transform: hovered ? 'scale(1.12)' : 'scale(1)' }}
+      >
+        {item.image_emoji}
+      </div>
       <h3 className="font-bold text-white text-sm mb-0.5 truncate">{item.name}</h3>
       <p className="text-gray-400 text-xs mb-2 line-clamp-2 leading-snug">{item.description}</p>
 
@@ -48,11 +65,17 @@ export default function FoodCard({ item, onClick }) {
         <span className="text-green-400 text-xs font-semibold">₹{item.price}</span>
       </div>
 
-      <div className={`mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${badge.bg} ${badge.text}`}>
+      <div
+        className={`mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-semibold ${badge.bg} ${badge.text}`}
+        style={{ animation: 'badge-pop 0.4s ease-out both' }}
+      >
         {badge.icon} {sentiment}
       </div>
 
-      <div className="mt-2 text-center text-xs text-orange-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+      <div
+        className="mt-2 text-center text-xs text-orange-400 font-medium transition-opacity duration-200"
+        style={{ opacity: hovered ? 1 : 0 }}
+      >
         Tap to rate →
       </div>
     </button>
